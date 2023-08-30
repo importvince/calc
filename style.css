@@ -1,0 +1,131 @@
+/* default style fix */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+html {
+    color-scheme: light;
+}
+
+img, picture, svg, video {
+    display: block;
+    max-width: 100%;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+  }
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* end of default styles */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calculator-body {
+    border: solid 2px black;
+    width: 400px;
+    height: 35rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: bisque;
+}
+
+#display-container {
+    border: solid 2px black;
+    width: 350px;
+    height: 6rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+#inner-display-container {
+    border: none;
+    width: 330px;
+    height: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    background-color: azure;
+}
+
+#display-box {
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#display-box > span {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+}
+
+#buttons-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+#buttons-container > button {
+    width: 80px;
+    height: 4rem;
+}
+
+#buttons-container > .operator {
+    background-color: coral;
+}
+
+#buttons-container > .other {
+    background-color: gold;
+}
