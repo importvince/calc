@@ -29,6 +29,11 @@ const period = document.getElementById('.');
 //grab display
 const display = document.getElementById('results');
 
+//global variables
+let num1;
+let num2;
+let operator;
+
 //clear function
 reset.addEventListener('click', () => {
     display.innerHTML = "";
@@ -45,14 +50,48 @@ backspace.addEventListener('click', () => {
     let sliced = array.slice(0, -1);
     let slicedString = sliced.join("");
     display.innerHTML = slicedString;
+    //set most recent number or operator variable to nothing
 });
 
-//display functions
+//display number and operator buttons once pressed
 for (let i = 0; i < displayBtns.length; i++) {
     displayBtns[i].addEventListener('click', function() {
       display.innerHTML += displayBtns[i].innerHTML;
-    });
-}
+      //assign first number variable 
+      num1 = parseInt(display.innerHTML);
+      num2 = 3;
+      //catch operator and assign it to a variable
+      if(displayBtns[i] == addBtn) {
+        operator = addBtn.innerHTML;
+        return num1, num2, operator;
+        // idea for num2: create an array and push display.innerHTML to it. if the last value of array is =, then findLast('+'), slice from this index forward and assign to num2?
+
+
+        } else if(displayBtns[i] == subtractBtn) {
+        let operator = subtractBtn.innerHTML;
+        } else if(displayBtns[i] == multiplyBtn) {
+        let operator = multiplyBtn.innerHTML;
+        } else if(displayBtns[i] == divideBtn) {
+        let operator = divideBtn.innerHTML;
+        }
+        //catch second number value
+        if(displayBtns[i-1] == addBtn || displayBtns[i-1] == subtractBtn || displayBtns[i-1] == multiplyBtn || displayBtns[i-1] == divideBtn) {
+            //assign second number variable
+            let num2 = parsetInt(display.innerHTML[i]);
+            console.log(num2);
+        }
+    }
+    )
+};
+
+//solve function **WORKS!! now just need to figure out the num2 capture
+equals.addEventListener('click', () => {
+    let result = operate(num1,num2,operator);
+    display.innerHTML = result;
+    num1 = "";
+    num2 = "";
+    operator =  "";
+});
 
 
 // basic functionality
@@ -73,18 +112,19 @@ function divide(a,b) {
 }
 
 function operate(a,b, operator) {
-    if(operator == 'add') {
-        const add = added(a, b);
+    if(operator == '+') {
+        const added = add(a, b);
         console.log(added);
-    } else if(operator == 'subtract') {
+        return added;
+    } else if(operator == '-') {
         const subtracted = subtract(a,b);
         console.log(subtracted);
-    } else if(operator == 'multiply') {
+    } else if(operator == 'x') {
         const multiplied = multiply(a,b);
         console.log(multiplied);
-    } else if(operator == 'divide') {
+    } else if(operator == '/') {
         const divided = divide(a,b);
         console.log(divided);
-    } else console.log('Please enter a valid operator in string form');
-}
+    } else console.log('Error');
+};
 
