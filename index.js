@@ -1,3 +1,7 @@
+// still need to do: 
+// capture num2
+// prevent more than 1 operator
+
 //grab all numbers
 // const one = document.getElementById('one');
 // const two = document.getElementById('two');
@@ -84,7 +88,7 @@ equals.addEventListener('click', () => {
     console.log(num1,num2,operator);
     let result = operate(num1,num2,operator);
     display.innerHTML = result;
-    num1 = "";
+    num1 = result;
     num2 = "";
     operator =  "";
 });
