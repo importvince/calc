@@ -65,20 +65,15 @@ for (let i = 0; i < displayBtns.length; i++) {
         operator = addBtn.innerHTML;
         return num1, num2, operator;
         // idea for num2: create an array and push display.innerHTML to it. if the last value of array is =, then findLast('+'), slice from this index forward and assign to num2?
-
-
         } else if(displayBtns[i] == subtractBtn) {
-        let operator = subtractBtn.innerHTML;
+        operator = subtractBtn.innerHTML;
+        return num1, num2, operator;
         } else if(displayBtns[i] == multiplyBtn) {
-        let operator = multiplyBtn.innerHTML;
+        operator = multiplyBtn.innerHTML;
+        return num1, num2, operator;
         } else if(displayBtns[i] == divideBtn) {
-        let operator = divideBtn.innerHTML;
-        }
-        //catch second number value
-        if(displayBtns[i-1] == addBtn || displayBtns[i-1] == subtractBtn || displayBtns[i-1] == multiplyBtn || displayBtns[i-1] == divideBtn) {
-            //assign second number variable
-            let num2 = parsetInt(display.innerHTML[i]);
-            console.log(num2);
+        operator = divideBtn.innerHTML;
+        return num1, num2, operator;
         }
     }
     )
@@ -86,6 +81,7 @@ for (let i = 0; i < displayBtns.length; i++) {
 
 //solve function **WORKS!! now just need to figure out the num2 capture
 equals.addEventListener('click', () => {
+    console.log(num1,num2,operator);
     let result = operate(num1,num2,operator);
     display.innerHTML = result;
     num1 = "";
@@ -119,12 +115,15 @@ function operate(a,b, operator) {
     } else if(operator == '-') {
         const subtracted = subtract(a,b);
         console.log(subtracted);
+        return subtracted;
     } else if(operator == 'x') {
         const multiplied = multiply(a,b);
         console.log(multiplied);
+        return multiplied;
     } else if(operator == '/') {
         const divided = divide(a,b);
         console.log(divided);
+        return divided;
     } else console.log('Error');
 };
 
