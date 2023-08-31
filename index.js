@@ -12,6 +12,8 @@
 
 const numberBtns = document.querySelectorAll('.number')
 
+const displayBtns = document.querySelectorAll('.display')
+
 //grab all operators
 const addBtn = document.getElementById('+');
 const subtractBtn = document.getElementById('-');
@@ -27,10 +29,28 @@ const period = document.getElementById('.');
 //grab display
 const display = document.getElementById('results');
 
+//clear function
+reset.addEventListener('click', () => {
+    display.innerHTML = "";
+    //set num1, num2, and operator to nothing
+})
+
+//delete function
+backspace.addEventListener('click', () => {
+    let array = [];
+    for (let i = 0; i < display.innerHTML.length; i++) {
+        array.push(display.innerHTML[i]);
+    }
+    console.log[array];
+    let sliced = array.slice(0, -1);
+    let slicedString = sliced.join("");
+    display.innerHTML = slicedString;
+});
+
 //display functions
-for (let i = 0; i < numberBtns.length; i++) {
-    numberBtns[i].addEventListener('click', function() {
-      display.innerHTML = numberBtns[i].innerHTML;
+for (let i = 0; i < displayBtns.length; i++) {
+    displayBtns[i].addEventListener('click', function() {
+      display.innerHTML += displayBtns[i].innerHTML;
     });
 }
 
@@ -67,3 +87,4 @@ function operate(a,b, operator) {
         console.log(divided);
     } else console.log('Please enter a valid operator in string form');
 }
+
