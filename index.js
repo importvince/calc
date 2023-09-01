@@ -5,18 +5,18 @@ const numberBtns = document.querySelectorAll('.number')
 const displayBtns = document.querySelectorAll('.display')
 
 //grab all operators
-const addBtn = document.getElementById('+');
-const subtractBtn = document.getElementById('-');
-const multiplyBtn = document.getElementById('x');
-const divideBtn = document.getElementById('/');
+const addBtn = document.getElementById('add');
+const subtractBtn = document.getElementById('subtract');
+const multiplyBtn = document.getElementById('multiply');
+const divideBtn = document.getElementById('divide');
 //put all operators into an array
 const allOpBtns = Array.from(document.getElementsByClassName('operator'));
 
 //grab all other buttons
 const reset = document.getElementById('reset');
 const backspace = document.getElementById('delete');
-const equals = document.getElementById('=');
-const period = document.getElementById('.');
+const equals = document.getElementById('equal');
+const period = document.getElementById('dot');
 
 //grab display
 const display = document.getElementById('results');

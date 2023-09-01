@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Handjet:wght@400&family=Roboto+Condensed:wght@700&display=swap');
+
+/* variables */
+:root {
+    --prim-color: #94A684;
+    --prim-color-rgb: rgb(148, 166, 132);
+    --sec-color: #AEC3AE;
+    --thrid-color: #E4E4D0;
+    --fourth-color: #FFEEF4;
+    --box-shadow-layer-one: rgba(72, 81, 64, 0.2);
+    --box-shadow-layer-two: rgba(72, 81, 64, 0.15);
+    --box-shadow-layer-three: rgba(72, 81, 64, 0.1);
+    --box-shadow-layer-four: rgba(72, 81, 64, 0.05);
+}
+
 /* default style fix */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -63,29 +78,51 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgb(224, 201, 171);
 }
 
 #calculator-body {
     border: solid 2px black;
     width: 400px;
-    height: 35rem;
+    height: 37rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: bisque;
+    background-color: var(--prim-color);
+    box-shadow:
+        10px 10px 10px rgba(0, 0, 0, 0.2),
+        10px 10px 20px rgba(0, 0, 0, 0.15),
+        10px 10px 30px rgba(0, 0, 0, 0.1),
+        10px 10px 40px rgba(0, 0, 0, 0.05),
+
+        inset -5px -5px 2px var(--box-shadow-layer-one),
+        inset -5px -5px 5px var(--box-shadow-layer-two),
+        inset -5px -5px 7px var(--box-shadow-layer-three),
+        inset -5px -5px 10px var(--box-shadow-layer-four);
+}
+
+#title {
+    margin-top: 1rem;
+}
+
+#title-words {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    font-weight: 600;
+    color: var(--fourth-color);
 }
 
 #display-container {
-    border: solid 2px black;
+    border: solid 3px black;
     width: 350px;
     height: 6rem;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: black;
+    background-color: rgb(66, 66, 66);
 }
 
 #inner-display-container {
@@ -107,25 +144,118 @@ body {
 }
 
 #display-box > span {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 30px;
+    font-family: 'Handjet', cursive;
+    font-weight: 300;
+    font-size: 60px;
 }
 
 #buttons-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: 
+    'reset delete . added'
+    "one two three subtracted"
+    "four five six multiplied"
+    "seven eight nine divided"
+    ". zeroed dotty equal";
     gap: 10px;
+}
+#reset {
+    grid-area: reset;
+}
+#delete {
+    grid-area: delete;
+} 
+#dot {
+    grid-area: dotty;
+}
+#equal {
+    grid-area: equal;
+}
+
+#add {
+    grid-area: added;
+}
+#subtract {
+    grid-area: subtracted;
+}
+#multiply {
+    grid-area: multiplied;
+}
+#divide {
+    grid-area: divided;
+}
+
+#one {
+    grid-area: one;
+}
+#two {
+    grid-area: two;
+}
+#three {
+    grid-area: three;
+}
+#four {
+    grid-area: four;
+}
+#five {
+    grid-area: five;
+}
+#six {
+    grid-area: six;
+}
+#seven {
+    grid-area: seven;
+}
+#eight {
+    grid-area: eight;
+}
+#nine {
+    grid-area: nine;
+}
+#zero {
+    grid-area: zeroed;
 }
 
 #buttons-container > button {
     width: 80px;
     height: 4rem;
+    color:rgb(54, 54, 54);
+    font-weight: 700;
+    font-size: larger;
+}
+
+#buttons-container > button:hover {
+    background-color:darkgrey;
+}
+
+#buttons-container > button:active {
+    transform: scale(90%);
 }
 
 #buttons-container > .operator {
-    background-color: coral;
+    background-color: var(--fourth-color);
 }
 
 #buttons-container > .other {
-    background-color: gold;
+    background-color: var(--thrid-color);
+}
+
+#buttons-container > .number {
+    background-color: var(--sec-color);
+}
+
+#attribution {
+    margin-top: 1rem;
+}
+
+#words {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-small;
+    color: var(--fourth-color)
+}
+
+#words > a {
+    text-decoration: none;
 }
