@@ -1,21 +1,7 @@
-// still need to do: 
-// capture num2
-// prevent more than 1 operator
-
-//grab all numbers
-// const one = document.getElementById('one');
-// const two = document.getElementById('two');
-// const three = document.getElementById('three');
-// const four = document.getElementById('four');
-// const five = document.getElementById('five');
-// const six = document.getElementById('six');
-// const seven = document.getElementById('seven');
-// const eight = document.getElementById('eight');
-// const nine = document.getElementById('nine');
-// const zero = document.getElementById('ten');
-
+//grab all number buttons
 const numberBtns = document.querySelectorAll('.number')
 
+//grab all buttons that should be displayed 
 const displayBtns = document.querySelectorAll('.display')
 
 //grab all operators
@@ -23,6 +9,7 @@ const addBtn = document.getElementById('+');
 const subtractBtn = document.getElementById('-');
 const multiplyBtn = document.getElementById('x');
 const divideBtn = document.getElementById('/');
+//put all operators into an array
 const allOpBtns = Array.from(document.getElementsByClassName('operator'));
 
 //grab all other buttons
@@ -38,6 +25,8 @@ const display = document.getElementById('results');
 let num1;
 let num2;
 let operator;
+//display tracker array
+let currentDisplay = [];
 
 //clear function
 reset.addEventListener('click', () => {
@@ -56,36 +45,7 @@ backspace.addEventListener('click', () => {
     let sliced = array.slice(0, -1);
     let slicedString = sliced.join("");
     display.innerHTML = slicedString;
-    //set most recent number or operator variable to nothing
 });
-
-console.log(addBtn.value);
-
-//array of operator symbols
-const operatorArray = ['+', '-', 'x', '/'];
-
-//display tracker array
-let currentDisplay = [];
-
-//separate function for math
-// math();
-// function math() {
-//     if(display.innerHTML[-1].includes(allOpBtns.innerHTML)) {
-//         for(let i = 0; i<allOpBtns.length; i++) {
-//             allOpBtns[i].removeEventListener('click')
-//         };
-//         if(display.innerHTML[-2].includes(operatorArray) && display.innerHTML[-1].includes(numberBtns)) {
-//             display.innerHTML = "";
-        // }
-
-        // for(let i = 0; i < numberBtns.length; i++) {
-        //     numberBtns[i].addEventListener('click', () => {
-        //         display.innerHTML += numberBtns.innerHTML;
-        //         num2 = parseInt(display.innerHTML);
-        //     })
-        // }   
-//     }
-// }
 
 //display number and operator buttons once pressed
 for (let i = 0; i < displayBtns.length; i++) {
@@ -93,22 +53,11 @@ for (let i = 0; i < displayBtns.length; i++) {
       display.innerHTML += displayBtns[i].innerHTML;
       currentDisplay.push(display.innerHTML);
       console.log(currentDisplay);
-      //assign first number variable 
-    //   num1 = parseInt(display.innerHTML);
-    //   num2 = 3;
-      //catch operator and assign it to a variable
-      if(allOpBtns.includes(displayBtns[i])) {
-        // operator = displayBtns[i].innerHTML;
-        // return num1, num2, operator;
-      }
-
-    //     // idea for num2: create an array and push display.innerHTML to it. if the last value of array is =, then findLast('+'), slice from this index forward and assign to num2?
-    }
-    )
+    })
 };
 
 
-//solve function **WORKS!!
+//solve function
 equals.addEventListener('click', () => {;
     let equationString = currentDisplay.pop();
     let equationArray = [];
