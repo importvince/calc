@@ -23,6 +23,7 @@ const addBtn = document.getElementById('+');
 const subtractBtn = document.getElementById('-');
 const multiplyBtn = document.getElementById('x');
 const divideBtn = document.getElementById('/');
+const allOpBtns = Array.from(document.getElementsByClassName('operator'));
 
 //grab all other buttons
 const reset = document.getElementById('reset');
@@ -41,6 +42,7 @@ let operator;
 //clear function
 reset.addEventListener('click', () => {
     display.innerHTML = "";
+    currentDisplay.splice(0, currentDisplay.length);
     //set num1, num2, and operator to nothing
 })
 
@@ -57,34 +59,71 @@ backspace.addEventListener('click', () => {
     //set most recent number or operator variable to nothing
 });
 
+console.log(addBtn.value);
+
+//array of operator symbols
+const operatorArray = ['+', '-', 'x', '/'];
+
+//display tracker array
+let currentDisplay = [];
+
+//separate function for math
+// math();
+// function math() {
+//     if(display.innerHTML[-1].includes(allOpBtns.innerHTML)) {
+//         for(let i = 0; i<allOpBtns.length; i++) {
+//             allOpBtns[i].removeEventListener('click')
+//         };
+//         if(display.innerHTML[-2].includes(operatorArray) && display.innerHTML[-1].includes(numberBtns)) {
+//             display.innerHTML = "";
+        // }
+
+        // for(let i = 0; i < numberBtns.length; i++) {
+        //     numberBtns[i].addEventListener('click', () => {
+        //         display.innerHTML += numberBtns.innerHTML;
+        //         num2 = parseInt(display.innerHTML);
+        //     })
+        // }   
+//     }
+// }
+
 //display number and operator buttons once pressed
 for (let i = 0; i < displayBtns.length; i++) {
     displayBtns[i].addEventListener('click', function() {
       display.innerHTML += displayBtns[i].innerHTML;
+      currentDisplay.push(display.innerHTML);
+      console.log(currentDisplay);
       //assign first number variable 
-      num1 = parseInt(display.innerHTML);
-      num2 = 3;
+    //   num1 = parseInt(display.innerHTML);
+    //   num2 = 3;
       //catch operator and assign it to a variable
-      if(displayBtns[i] == addBtn) {
-        operator = addBtn.innerHTML;
-        return num1, num2, operator;
-        // idea for num2: create an array and push display.innerHTML to it. if the last value of array is =, then findLast('+'), slice from this index forward and assign to num2?
-        } else if(displayBtns[i] == subtractBtn) {
-        operator = subtractBtn.innerHTML;
-        return num1, num2, operator;
-        } else if(displayBtns[i] == multiplyBtn) {
-        operator = multiplyBtn.innerHTML;
-        return num1, num2, operator;
-        } else if(displayBtns[i] == divideBtn) {
-        operator = divideBtn.innerHTML;
-        return num1, num2, operator;
-        }
+      if(allOpBtns.includes(displayBtns[i])) {
+        // operator = displayBtns[i].innerHTML;
+        // return num1, num2, operator;
+      }
+
+    //     // idea for num2: create an array and push display.innerHTML to it. if the last value of array is =, then findLast('+'), slice from this index forward and assign to num2?
     }
     )
 };
 
-//solve function **WORKS!! now just need to figure out the num2 capture
-equals.addEventListener('click', () => {
+
+//solve function **WORKS!!
+equals.addEventListener('click', () => {;
+    let equationString = currentDisplay.pop();
+    let equationArray = [];
+    for (let i = 0; i<equationString.length; i++) {
+        equationArray.push(equationString[i]);
+    }
+    let operatorIndex = equationArray.findIndex(e => isNaN(e));
+    console.log(operatorIndex);
+    let num1String = equationArray.slice(0,operatorIndex).join("");
+    console.log(num1String);
+    let num2String = equationArray.slice((operatorIndex + 1)).join("");
+    console.log(num2String);
+    num1 = parseInt(num1String);
+    num2 = parseInt(num2String);
+    operator = equationArray.slice(operatorIndex, (operatorIndex + 1)).toString();
     console.log(num1,num2,operator);
     let result = operate(num1,num2,operator);
     display.innerHTML = result;
