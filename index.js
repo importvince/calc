@@ -35,6 +35,11 @@ let operatorClickCount = 0;
 reset.addEventListener('click', () => {
     display.innerHTML = "";
     currentDisplay.splice(0, currentDisplay.length);
+    operationTracker = [];
+    operatorClickCount = 0;
+    num1 = "";
+    num2 = "";
+    operator = "";
     //set num1, num2, and operator to nothing
 })
 
@@ -51,24 +56,24 @@ backspace.addEventListener('click', () => {
 });
 
 //double op checker
-function checker() {
-    let checkerString = currentDisplay.pop();
-    let checkerArray = [];
-    for (let i = 0; i < checkerString.length; i++) {
-        checkerArray.push(checkerString[i]);
-        console.log('new checkerArray:' + checkerArray);
-    }
-    let filteredChecker = checkerArray.filter(e => isNaN(e));
-    console.log('new filteredChecker:' + filteredChecker);
-    if(filteredChecker.length > 1) {
-        let lastOp = filteredChecker.pop();
-        console.log("lastOp:" + lastOp);
-        solver();
-        operator = lastOp;
-        console.log("operator:" + operator);
-    }
+// function checker() {
+//     let checkerString = currentDisplay.pop();
+//     let checkerArray = [];
+//     for (let i = 0; i < checkerString.length; i++) {
+//         checkerArray.push(checkerString[i]);
+//         console.log('new checkerArray:' + checkerArray);
+//     }
+//     let filteredChecker = checkerArray.filter(e => isNaN(e));
+//     console.log('new filteredChecker:' + filteredChecker);
+//     if(filteredChecker.length > 1) {
+//         let lastOp = filteredChecker.pop();
+//         console.log("lastOp:" + lastOp);
+//         solver();
+//         operator = lastOp;
+//         console.log("operator:" + operator);
+//     }
 
-}
+// }
 
 //display number and operator buttons once pressed
 for (let i = 0; i < displayBtns.length; i++) {
@@ -123,14 +128,17 @@ function solver() {
     display.innerHTML = result;
     num1 = result;
     num2 = "";
+    //i think i need to add an if statement here that either sets the operator variable equal to nothing or the last element in operationTracker depending on whether the click count is 0 or 1. 
     operator =  operationTracker.pop().toString();
     display.innerHTML+=operator;
     operatorClickCount = 1;
+    operationTracker = [];
 }
 
 //solve if equals is clicked
 equals.addEventListener('click', () => {
     solver();
+    operationTracker = [];
 });
 
 
