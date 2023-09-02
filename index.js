@@ -27,6 +27,9 @@ let num2;
 let operator;
 //display tracker array
 let currentDisplay = [];
+let operationTracker = [];
+let operatorClickCount = 0;
+
 
 //clear function
 reset.addEventListener('click', () => {
@@ -47,39 +50,89 @@ backspace.addEventListener('click', () => {
     display.innerHTML = slicedString;
 });
 
+//double op checker
+function checker() {
+    let checkerString = currentDisplay.pop();
+    let checkerArray = [];
+    for (let i = 0; i < checkerString.length; i++) {
+        checkerArray.push(checkerString[i]);
+        console.log('new checkerArray:' + checkerArray);
+    }
+    let filteredChecker = checkerArray.filter(e => isNaN(e));
+    console.log('new filteredChecker:' + filteredChecker);
+    if(filteredChecker.length > 1) {
+        let lastOp = filteredChecker.pop();
+        console.log("lastOp:" + lastOp);
+        solver();
+        operator = lastOp;
+        console.log("operator:" + operator);
+    }
+
+}
+
 //display number and operator buttons once pressed
 for (let i = 0; i < displayBtns.length; i++) {
     displayBtns[i].addEventListener('click', function() {
       display.innerHTML += displayBtns[i].innerHTML;
       currentDisplay.push(display.innerHTML);
-      console.log(currentDisplay);
-    })
+      if(allOpBtns.includes(displayBtns[i])) {
+        operatorClickCount++;
+        operationTracker.push(displayBtns[i].innerHTML);
+        console.log("op tracker:" + operationTracker);
+        console.log('op click count: ' + operatorClickCount);
+      }
+      if(operatorClickCount > 1) {
+        solver();
+      }
+    //   checker(); 
+    }
+)
 };
+    //   let moreThanOneExpression = equationArray.filter(e => isNaN(e));
+    //   console.log(equationArray);
+    //   console.log("this is " + moreThanOneExpression);
+    //   if(moreThanOneExpression.length >= 2) {
+    //     solver();
+        // let newOperator = moreThanOneExpression.pop();
+        // operator = newOperator;
+//solve if more than 1 operator pressed
 
-
-//solve function
-equals.addEventListener('click', () => {;
+//modular solver
+function solver() {
     let equationString = currentDisplay.pop();
     let equationArray = [];
     for (let i = 0; i<equationString.length; i++) {
         equationArray.push(equationString[i]);
     }
+
     let operatorIndex = equationArray.findIndex(e => isNaN(e));
     console.log(operatorIndex);
+
     let num1String = equationArray.slice(0,operatorIndex).join("");
     console.log(num1String);
+
     let num2String = equationArray.slice((operatorIndex + 1)).join("");
     console.log(num2String);
+
     num1 = parseInt(num1String);
     num2 = parseInt(num2String);
     operator = equationArray.slice(operatorIndex, (operatorIndex + 1)).toString();
     console.log(num1,num2,operator);
+
     let result = operate(num1,num2,operator);
     display.innerHTML = result;
     num1 = result;
     num2 = "";
-    operator =  "";
+    operator =  operationTracker.pop().toString();
+    display.innerHTML+=operator;
+    operatorClickCount = 1;
+}
+
+//solve if equals is clicked
+equals.addEventListener('click', () => {
+    solver();
 });
+
 
 
 // basic functionality
