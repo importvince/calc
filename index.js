@@ -31,6 +31,7 @@ let currentDisplay = [];
 let operationTracker = [];
 let operatorClickCount = 0;
 let isEqualsClicked = false;
+let isPeriodClicked = false;
 
 
 //clear button function AKA reset everything
@@ -42,6 +43,10 @@ reset.addEventListener('click', () => {
     num1 = "";
     num2 = "";
     operator = "";
+
+    //enable period button
+    period.disabled = false;
+    isPeriodClicked = false;
 })
 
 //delete button function
@@ -93,12 +98,17 @@ for (let i = 0; i < displayBtns.length; i++) {
       if(allOpBtns.includes(displayBtns[i])) {
         operatorClickCount++;
         operationTracker.push(displayBtns[i].innerHTML);
+
+        //enable period button
+        period.disabled = false;
+        isPeriodClicked = false;
       }
       //if more than one operator pressed, run solver
       if(operatorClickCount > 1) {
         solver();
         //if only one is pressed, enable the equals button
       } else {
+        //enable equals button
         isEqualsClicked = false;
         equals.disabled = false;
       }
@@ -153,59 +163,87 @@ function solver() {
     //grab last element in current display
     let equationString = currentDisplay.pop();
     let equationArray = [];
+
     //break it up into compenent pieces
     for (let i = 0; i<equationString.length; i++) {
         equationArray.push(equationString[i]);
     }
+
     //find where the operator is while avoiding decimals 
     let operatorIndex = equationArray.findIndex((e) => {
         return typeof(e) == 'string' && operatorSymbols.includes(e);
     });
     console.log('opindex: '+ operatorIndex)
+
     //slice the array up to the operator for num1
     let num1String = equationArray.slice(0,operatorIndex).join("");
     console.log(num1String);
+
     //slice the array after the operator for num2
     let num2String = equationArray.slice((operatorIndex +1)).join("");
     console.log(num2String);
 
+    //turn those both into Float type
     num1 = parseFloat(num1String);
     num2 = parseFloat(num2String);
+
     //if equals is pressed again without a second number, just assume num1 and num2 are the same
     if(isNaN(num2)) {
         num2 = num1;
     }
-    //slice the operaotr out of the array for operator variable
+
+    //slice the operator out of the array for operator variable
     operator = equationArray.slice(operatorIndex, (operatorIndex + 1)).toString();
     console.log(num1,num2,operator);
+
     //run the operate functions with these variables and round to 2 decimal places
     let result = operate(num1,num2,operator);
+
     //check for long decimals and round
     let resultString = result.toString();
     if(resultString.length > 10) {
         result = result.toFixed(2);
     }
+
     //put that result in the display and set it equal to num1 for next operation
     display.innerHTML = result;
     num1 = result;
     num2 = "";
+
     //if an operator button has been pressed 0 or 1 times, set the operator variable back to nothing
     if(operatorClickCount <= 1) {
         operator = '';
+
         //otherwise, set it equal to the last element in the array that tracks which operator has been pressed
     } else {
         operator =  operationTracker.pop().toString();
+
         //display that operator next to the result
         display.innerHTML+=operator;
+
         //set count back to 1 so that the operator variable is cleared if solver is run again using the equals button instead
         operatorClickCount = 1;
-        //place the new operaotr back into the tracker since we removed it
+
+        //place the new operator back into the tracker since we removed it
         operationTracker = [operator];
+
         //enable the equals button
         isEqualsClicked = false;
         equals.disabled = false;
+
+        //enable the period button
+        period.disabled = false;
+        isPeriodClicked = false;
     }
 }
+
+//limit to one decimal per side of equation
+period.addEventListener('click', () => {
+    if(!isPeriodClicked) {
+        period.disabled = true;
+        isPeriodClicked = true;
+    }
+});
 
 //solve if equals is clicked
 equals.addEventListener('click', () => {
