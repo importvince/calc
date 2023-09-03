@@ -25,7 +25,7 @@ const display = document.getElementById('results');
 let num1;
 let num2;
 let operator;
-let operatorSymbols = ['+', '-', 'x', '/'];
+let operatorSymbols = ['+', '-', '*', '/'];
 //trackers
 let currentDisplay = [];
 let operationTracker = [];
@@ -72,16 +72,18 @@ document.addEventListener('keydown', (e) => {
     if(
         e.key === 'Backspace'
     ) {
-            //if words on screen, just remove it all
+    //if words on screen, just remove it all
     if(display.innerHTML == 'undefined' || display.innerHTML == 'Infinity' || display.innerHTML == 'get real') {
         display.innerHTML = "";
     //otherwise just delete the last character
     } else {
         let array = [];
+        //push all values into a new array
         for (let i = 0; i < display.innerHTML.length; i++) {
             array.push(display.innerHTML[i]);
         }
         console.log[array];
+        //slice that array up to the last value, turn into a string, and display
         let sliced = array.slice(0, -1);
         let slicedString = sliced.join("");
         display.innerHTML = slicedString;
@@ -95,7 +97,7 @@ for (let i = 0; i < displayBtns.length; i++) {
       display.innerHTML += displayBtns[i].innerHTML;
       currentDisplay.push(display.innerHTML);
       //keep count of operator press count and type
-      if(allOpBtns.includes(displayBtns[i])) {
+      if(operatorSymbols.includes(displayBtns[i])) {
         operatorClickCount++;
         operationTracker.push(displayBtns[i].innerHTML);
 
@@ -132,7 +134,7 @@ document.addEventListener('keydown', (e) => {
         e.key === '9' ||
         e.key === '+' ||
         e.key === '-' ||
-        e.key === 'x' ||
+        e.key === '*' ||
         e.key === '/' ||
         e.key === '.'
     ) {
@@ -142,14 +144,18 @@ document.addEventListener('keydown', (e) => {
         console.log(currentDisplay);
         //keep count of operator press count and type
         if(operatorSymbols.includes(button)) {
-        operatorClickCount++;
-        operationTracker.push(button);
-        console.log(operatorClickCount);
-        console.log(operationTracker);
+            operatorClickCount++;
+            operationTracker.push(button);
+            console.log(operatorClickCount);
+            console.log(operationTracker);
+
+            //enable period button
+            period.disabled = false;
+            isPeriodClicked = false;
         }
         //if more than one operator pressed, run solver
         if(operatorClickCount > 1) {
-        solver();
+            solver();
         //if only one is pressed, enable the equals button
         } else {
             isEqualsClicked = false;
@@ -305,7 +311,7 @@ function operate(a,b, operator) {
         const subtracted = subtract(a,b);
         console.log(subtracted);
         return subtracted;
-    } else if(operator == 'x') {
+    } else if(operator == '*') {
         const multiplied = multiply(a,b);
         console.log(multiplied);
         return multiplied;
