@@ -25,6 +25,7 @@ const display = document.getElementById('results');
 let num1;
 let num2;
 let operator;
+let operatorSymbols = ['+', '-', 'x', '/'];
 //trackers
 let currentDisplay = [];
 let operationTracker = [];
@@ -61,6 +62,28 @@ backspace.addEventListener('click', () => {
     }
 });
 
+//same as above, but for 'Backspace' keyboard click
+document.addEventListener('keydown', (e) => {
+    if(
+        e.key === 'Backspace'
+    ) {
+            //if words on screen, just remove it all
+    if(display.innerHTML == 'undefined' || display.innerHTML == 'Infinity' || display.innerHTML == 'get real') {
+        display.innerHTML = "";
+    //otherwise just delete the last character
+    } else {
+        let array = [];
+        for (let i = 0; i < display.innerHTML.length; i++) {
+            array.push(display.innerHTML[i]);
+        }
+        console.log[array];
+        let sliced = array.slice(0, -1);
+        let slicedString = sliced.join("");
+        display.innerHTML = slicedString;
+    }
+}
+});
+
 //display number and operator buttons once pressed
 for (let i = 0; i < displayBtns.length; i++) {
     displayBtns[i].addEventListener('click', function() {
@@ -83,6 +106,48 @@ for (let i = 0; i < displayBtns.length; i++) {
 )
 };
 
+//same as above, but for number keyboard clicks
+document.addEventListener('keydown', (e) => {
+    console.log(e.key);
+    if (
+        e.key === '0' ||
+        e.key === '1' ||
+        e.key === '2' ||
+        e.key === '3' ||
+        e.key === '4' ||
+        e.key === '5' ||
+        e.key === '6' ||
+        e.key === '7' ||
+        e.key === '8' ||
+        e.key === '9' ||
+        e.key === '+' ||
+        e.key === '-' ||
+        e.key === 'x' ||
+        e.key === '/' ||
+        e.key === '.'
+    ) {
+        let button = e.key;
+        display.innerHTML += button;
+        currentDisplay.push(display.innerHTML);
+        console.log(currentDisplay);
+        //keep count of operator press count and type
+        if(operatorSymbols.includes(button)) {
+        operatorClickCount++;
+        operationTracker.push(button);
+        console.log(operatorClickCount);
+        console.log(operationTracker);
+        }
+        //if more than one operator pressed, run solver
+        if(operatorClickCount > 1) {
+        solver();
+        //if only one is pressed, enable the equals button
+        } else {
+            isEqualsClicked = false;
+            equals.disabled = false;
+        }
+    }
+})
+
 // solver function
 function solver() {
     //grab last element in current display
@@ -92,18 +157,20 @@ function solver() {
     for (let i = 0; i<equationString.length; i++) {
         equationArray.push(equationString[i]);
     }
-    //find where the operator (non number) is
-    let operatorIndex = equationArray.findIndex(e => isNaN(e));
-    console.log(operatorIndex);
+    //find where the operator is while avoiding decimals 
+    let operatorIndex = equationArray.findIndex((e) => {
+        return typeof(e) == 'string' && operatorSymbols.includes(e);
+    });
+    console.log('opindex: '+ operatorIndex)
     //slice the array up to the operator for num1
     let num1String = equationArray.slice(0,operatorIndex).join("");
     console.log(num1String);
     //slice the array after the operator for num2
-    let num2String = equationArray.slice((operatorIndex + 1)).join("");
+    let num2String = equationArray.slice((operatorIndex +1)).join("");
     console.log(num2String);
 
-    num1 = parseInt(num1String);
-    num2 = parseInt(num2String);
+    num1 = parseFloat(num1String);
+    num2 = parseFloat(num2String);
     //if equals is pressed again without a second number, just assume num1 and num2 are the same
     if(isNaN(num2)) {
         num2 = num1;
@@ -151,6 +218,24 @@ equals.addEventListener('click', () => {
         operatorClickCount--;
     } else {
         return;
+    }
+});
+
+//same as above, but for 'Shift' keyboard click
+document.addEventListener('keydown', (e) => {
+    if(
+        e.key === 'Enter'
+    ) {
+    //disable the equals button after 1 press and run solver
+    if (!isEqualsClicked) {
+        solver();
+        equals.disabled = true;
+        isEqualsClicked = true;
+        operator = "";
+        operatorClickCount--;
+    } else {
+        return;
+    }
     }
 });
 
