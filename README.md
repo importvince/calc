@@ -28,7 +28,7 @@ Here's the desktop view
 ### Links
 
 - Solution URL: [solution](https://github.com/importvince/calc)
-- Live Site URL: [live site](add link)
+- Live Site URL: [live site](https://importvince.github.io/calc/)
 
 ## My process
 
@@ -44,13 +44,13 @@ Here's the desktop view
 
 1. Basic math... JK! Let's break it into topics:
 2. JS:
-2a: How to use a global variable to enable / disable buttons when appropriate. 
-2b: How to use Array methods (like filter, slice, and findIndex) to solve a whole host of seemingly dificult problems. I feel like I'm now an expert in turning a string into an array and then finding the index of a value. 
-2c: How to capture and attach event listeners to keyboard events. 
-2d: How to NOT use a Switch statement. Turns out you can't use these for conditional values. 
-2e: How to create a backspace function. 
+- How to use a global variable to enable / disable buttons when appropriate. 
+- How to use Array methods (like filter, slice, and findIndex) to solve a whole host of seemingly dificult problems. I feel like I'm now an expert in turning a string into an array and then finding the index of a value. 
+- How to capture and attach event listeners to keyboard events. 
+- How to NOT use a Switch statement. Turns out you can't use these for conditional values. 
+- How to create a backspace function. 
 3. CSS:
-3a: How to use Figma to aid my design workflow. Huge help in visualizing what I want my design to look like before committing to code. I had heard of it before, but didn't know it was so helpful. Look at this hilariously poor design I made before discovering Figma: ![](images/early-screenshot.png)
+- How to use Figma to aid my design workflow. Huge help in visualizing what I want my design to look like before committing to code. I had heard of it before, but didn't know it was so helpful. Look at this hilariously poor design I made before discovering Figma: ![](images/early-screenshot.png)
 
 ### Continued development
 
