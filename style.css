@@ -1,5 +1,5 @@
 /* import google fonts */
-@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@600&family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@600&family=Orbitron&display=swap');
 
 /* variables */
 :root {
@@ -76,9 +76,46 @@ select {
 
 body {
     display: flex;
-    justify-content: center;
+    justify-content:space-around;
     align-items: center;
     background-color: rgb(224, 201, 171);
+}
+
+.title {
+    justify-self: flex-start;
+    font-family: 'Bebas Neue';
+    font-size: 50px;
+    color: var(--prim-color);
+}
+
+#a {
+    color: var(--sec-color )
+}
+
+#simple {
+    color: var(--fourth-color)
+}
+
+#calculator {
+    color: var(--sec-color)
+}
+    
+#by {
+    color: var(--sec-color)
+}
+
+#import-vince {
+    color: var(--prim-color);
+}
+
+#import-vince > a {
+    color: var(--prim-color);
+    text-decoration: none;
+}
+
+#import-vince > a:hover {
+    color: var(--fourth-color);
+    text-decoration: none;
 }
 
 #box-shadow-wrapper {
@@ -88,7 +125,7 @@ body {
 #calculator-body {
     border: none;
     border-radius: 10px;
-    width: 350px;
+    width: 380px;
     height: 575px;
     display: flex;
     flex-direction: column;
@@ -100,22 +137,11 @@ body {
     filter: drop-shadow(4px 4px 1px rgb(36, 41, 99));
 }
 
-#title {
-    margin-top: 1rem;
-}
-
-#title-words {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: medium;
-    font-weight: 600;
-    color: var(--fourth-color);
-}
-
 #display-container {
     border: none;
     border-radius: 10px;
-    width: 90%;
-    height: 10rem;
+    width: 80% ;
+    height: 7rem;
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
@@ -141,7 +167,7 @@ body {
 }
 
 #display-box {
-    height: 3rem;
+    height: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -150,19 +176,20 @@ body {
 #display-box > span {
     font-family: 'Orbitron';
     font-weight: 300;
-    font-size: 50px;
+    font-size: 40px;
 }
 
 #buttons-container {
+    flex: 1;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 4rem);
     grid-template-rows: auto;
     grid-template-areas: 
-    'reset delete . added'
-    "one two three subtracted"
-    "four five six multiplied"
-    "seven eight nine divided"
-    "attribution zeroed dotty equal";
+    'reset delete added subtracted'
+    "one two three multiplied"
+    "four five six divided"
+    "seven eight nine equal"
+    "zeroed zeroed dotty equal";
     gap: 1rem;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
@@ -229,8 +256,6 @@ body {
 }
 
 #buttons-container > button {
-    width: 60px;
-    height: 60px;
     color:rgb(54, 54, 54);
     font-weight: 700;
     font-size: 30px;
@@ -259,7 +284,7 @@ body {
 
 #buttons-container > .other {
     border: none;
-    border-radius: 50%;
+    border-radius: 10px;
     background-color: var(--thrid-color);
     box-shadow: 
     4px 4px 10px 0px rgba(0, 0, 0, 0.25) inset, 

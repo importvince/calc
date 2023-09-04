@@ -36,7 +36,7 @@ let isPeriodClicked = false;
 
 //clear button function AKA reset everything
 reset.addEventListener('click', () => {
-    display.innerHTML = "";
+    display.textContent = "";
     currentDisplay.splice(0, currentDisplay.length);
     operationTracker = [];
     operatorClickCount = 0;
@@ -52,18 +52,18 @@ reset.addEventListener('click', () => {
 //delete button function
 backspace.addEventListener('click', () => {
     //if words on screen, just remove it all
-    if(display.innerHTML == 'undefined' || display.innerHTML == 'Infinity' || display.innerHTML == 'get real') {
-        display.innerHTML = "";
+    if(display.textContent == 'undefined' || display.textContent == 'Infinity' || display.textContent == 'get real') {
+        display.textContent = "";
     //otherwise just delete the last character
     } else {
         let array = [];
-        for (let i = 0; i < display.innerHTML.length; i++) {
-            array.push(display.innerHTML[i]);
+        for (let i = 0; i < display.textContent.length; i++) {
+            array.push(display.textContent[i]);
         }
         console.log[array];
         let sliced = array.slice(0, -1);
         let slicedString = sliced.join("");
-        display.innerHTML = slicedString;
+        display.textContent = slicedString;
     }
 });
 
@@ -73,20 +73,20 @@ document.addEventListener('keydown', (e) => {
         e.key === 'Backspace'
     ) {
     //if words on screen, just remove it all
-    if(display.innerHTML == 'undefined' || display.innerHTML == 'Infinity' || display.innerHTML == 'get real') {
-        display.innerHTML = "";
+    if(display.textContent == 'undefined' || display.textContent == 'Infinity' || display.textContent == 'get real') {
+        display.textContent = "";
     //otherwise just delete the last character
     } else {
         let array = [];
         //push all values into a new array
-        for (let i = 0; i < display.innerHTML.length; i++) {
-            array.push(display.innerHTML[i]);
+        for (let i = 0; i < display.textContent.length; i++) {
+            array.push(display.textContent[i]);
         }
         console.log[array];
         //slice that array up to the last value, turn into a string, and display
         let sliced = array.slice(0, -1);
         let slicedString = sliced.join("");
-        display.innerHTML = slicedString;
+        display.textContent = slicedString;
     }
 }
 });
@@ -94,12 +94,15 @@ document.addEventListener('keydown', (e) => {
 //display number and operator buttons once pressed
 for (let i = 0; i < displayBtns.length; i++) {
     displayBtns[i].addEventListener('click', function() {
-      display.innerHTML += displayBtns[i].innerHTML;
-      currentDisplay.push(display.innerHTML);
+      display.textContent += displayBtns[i].textContent;
+      currentDisplay.push(display.textContent);
+      console.log(currentDisplay);
+
       //keep count of operator press count and type
-      if(operatorSymbols.includes(displayBtns[i])) {
+      if(allOpBtns.includes(displayBtns[i])) {
         operatorClickCount++;
-        operationTracker.push(displayBtns[i].innerHTML);
+        operationTracker.push(displayBtns[i].textContent);
+        console.log(operatorClickCount);
 
         //enable period button
         period.disabled = false;
@@ -139,8 +142,8 @@ document.addEventListener('keydown', (e) => {
         e.key === '.'
     ) {
         let button = e.key;
-        display.innerHTML += button;
-        currentDisplay.push(display.innerHTML);
+        display.textContent += button;
+        currentDisplay.push(display.textContent);
         console.log(currentDisplay);
         //keep count of operator press count and type
         if(operatorSymbols.includes(button)) {
@@ -205,14 +208,44 @@ function solver() {
     //run the operate functions with these variables and round to 2 decimal places
     let result = operate(num1,num2,operator);
 
+
     //check for long decimals and round
     let resultString = result.toString();
     if(resultString.length > 10) {
         result = result.toFixed(2);
     }
 
+    //catch large results
+    // if(resultString.length > 8) {
+    //     //check for decimal
+    //     let resultArray = [];
+    //     for (let i = 0; i < result.length; i++) {
+    //         resultArray.push(result[i]);
+    //     }
+    //     //find the index of the decimal
+    //     let decimalIndex = resultArray.findIndex((e) => {
+    //         return e == '.';
+    //     });
+    //     let shortenedResult;
+    //     if(!decimalIndex) {
+    //         let noDecimalPower = resultArray.length;
+    //         for (let i = 0; i < noDecimalPower; i++) {
+    //             shortenedResult = result / 10;
+    //         }
+    //         result = shortenedResult;
+    //     } else {
+    //         if(decimalIndex > 7) {
+    //             let decimalPower = decimalIndex -1
+    //             for (let i = 0; i < decimalPower; i++) {
+    //                 shortenedResult = result / 10
+    //             }
+    //             result = shortenedResult;
+    //         }
+    //     }
+    // }
+
     //put that result in the display and set it equal to num1 for next operation
-    display.innerHTML = result;
+    display.textContent = result;
     num1 = result;
     num2 = "";
 
@@ -225,7 +258,7 @@ function solver() {
         operator =  operationTracker.pop().toString();
 
         //display that operator next to the result
-        display.innerHTML+=operator;
+        display.textContent+=operator;
 
         //set count back to 1 so that the operator variable is cleared if solver is run again using the equals button instead
         operatorClickCount = 1;
@@ -269,6 +302,24 @@ equals.addEventListener('click', () => {
 document.addEventListener('keydown', (e) => {
     if(
         e.key === 'Enter'
+    ) {
+    //disable the equals button after 1 press and run solver
+    if (!isEqualsClicked) {
+        solver();
+        equals.disabled = true;
+        isEqualsClicked = true;
+        operator = "";
+        operatorClickCount--;
+    } else {
+        return;
+    }
+    }
+});
+
+//same as above but for equals button
+document.addEventListener('keydown', (e) => {
+    if(
+        e.key === '='
     ) {
     //disable the equals button after 1 press and run solver
     if (!isEqualsClicked) {
