@@ -76,24 +76,29 @@ select {
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content:space-around;
     align-items: center;
-    background-color: rgb(224, 201, 171);
+    background-color: rgb(224, 201, 171);background: url(/images/Group\ 1.png), rgb(213, 213, 214) 50%;
+    background-blend-mode: overlay;
+    background-size: cover;
+
 }
 
 .title {
     justify-self: flex-start;
+    align-self: flex-start;
     font-family: 'Bebas Neue';
-    font-size: 50px;
+    font-size: 70px;
     color: var(--prim-color);
 }
 
 #a {
-    color: var(--sec-color )
+    color: var(--sec-color)
 }
 
 #simple {
-    color: var(--fourth-color)
+    color: var(--fourth-color);
 }
 
 #calculator {
@@ -120,11 +125,12 @@ body {
 
 #box-shadow-wrapper {
     filter: drop-shadow(8px 8px 10px rgba(0, 0, 0, 0.25));
+    margin-top: -1rem;
 }
 
 #calculator-body {
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
     width: 380px;
     height: 575px;
     display: flex;
@@ -269,6 +275,10 @@ body {
 
 #buttons-container > button:active {
     transform: scale(90%);
+}
+
+#buttons-container > button:hover {
+    filter: brightness(0.7);
 }
 
 #buttons-container > .operator {
