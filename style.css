@@ -79,7 +79,7 @@ body {
     flex-direction: column;
     justify-content:space-around;
     align-items: center;
-    background-color: rgb(224, 201, 171);background: url(../images/Group-1.png), rgb(213, 213, 214) 50%;
+    background-color: rgb(224, 201, 171);background: "../images/Group-1.png", rgb(213, 213, 214) 50%;
     background-blend-mode: overlay;
     background-size: cover;
 
