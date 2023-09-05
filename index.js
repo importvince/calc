@@ -215,35 +215,6 @@ function solver() {
         result = result.toFixed(2);
     }
 
-    //catch large results
-    // if(resultString.length > 8) {
-    //     //check for decimal
-    //     let resultArray = [];
-    //     for (let i = 0; i < result.length; i++) {
-    //         resultArray.push(result[i]);
-    //     }
-    //     //find the index of the decimal
-    //     let decimalIndex = resultArray.findIndex((e) => {
-    //         return e == '.';
-    //     });
-    //     let shortenedResult;
-    //     if(!decimalIndex) {
-    //         let noDecimalPower = resultArray.length;
-    //         for (let i = 0; i < noDecimalPower; i++) {
-    //             shortenedResult = result / 10;
-    //         }
-    //         result = shortenedResult;
-    //     } else {
-    //         if(decimalIndex > 7) {
-    //             let decimalPower = decimalIndex -1
-    //             for (let i = 0; i < decimalPower; i++) {
-    //                 shortenedResult = result / 10
-    //             }
-    //             result = shortenedResult;
-    //         }
-    //     }
-    // }
-
     //put that result in the display and set it equal to num1 for next operation
     display.textContent = result;
     num1 = result;
