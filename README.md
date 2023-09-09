@@ -12,6 +12,7 @@ This is a solution to the [Calculator challenge from The Odin Project](https://w
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
+  -[Acknowledgements](#acknowledgments)
 
 ## Overview
 
